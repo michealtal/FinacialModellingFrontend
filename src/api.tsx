@@ -163,11 +163,15 @@ export const getCompData = async (symbol: string) => {
         error.response?.status,
         error.message
       );
-      return [];
-    } else {
-      console.error("Unexpected error", error);
-      return [];
+      if (error.response?.status === 402) {
+        throw new Error("402: This endpoint requires a paid FMP plan.")
+      }
+      throw new Error(`API error: ${error.response?.status} ${error.response?.statusText}`)
     }
+    throw new Error("Unexpected error fetching comp data")
+  
+      return [];
+    
   }
 };
 
@@ -179,18 +183,20 @@ export const getTenK = async (symbol: string) => {
         params: { symbol, from:"2024-01-01", to:"2024-03-01", page:0, limit:100, apikey: import.meta.env.VITE_API_KEY }, // ✅ use symbol, not query
       }
     );
-    return response.data; // <-- API returns an array
-  } catch (error) {
+    return response.data || []; // <-- API returns an array
+  } catch (error : any) {
     if (axios.isAxiosError(error)) {
       console.error(
         "Error searching companies:",
         error.response?.status,
         error.message
       );
-      return [];
-    } else {
-      console.error("Unexpected error", error);
-      return [];
+      if (error.response?.status === 402) {
+        throw new Error("402: This endpoint requires a paid FMP plan.")
+      }
+      throw new Error(`API error: ${error.response?.status} ${error.response?.statusText}`)
     }
+    throw new Error("Unexpected error fetching 10-K data")
+  
   }
-}
+} 

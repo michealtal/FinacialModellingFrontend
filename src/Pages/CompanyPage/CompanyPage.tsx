@@ -26,7 +26,6 @@ const CompanyPage = () => {
 
     getProfileInit();
   }, [ticker]);
-
   return (
     <>
       {company ? (
@@ -35,9 +34,17 @@ const CompanyPage = () => {
           <Sidebar/>
           <Company ticker={ticker!}>
             <Tile title="Company Name" subTitle={company.companyName} />
-            <Tile title="Price" subTitle={"$" + company.price.toString()} />
+            <Tile 
+              title="Price" 
+              subTitle={company?.price ? "$" + company.price.toString() : "N/A"} 
+            />
+
             <Tile title="Sector" subTitle={company.sector} />
-            <Tile title="DCF" subTitle={"$" + company.dcf.toString()} />
+            <Tile 
+              title="DCF" 
+              subTitle={company?.dcf ? "$" + company.dcf.toString() : "N/A"} 
+            />
+
             <CompFinder ticker={company.symbol} />
             <TenKFinder ticker={company.symbol} />
             <p className="bg-white shadow-lg rounded text-gray-900 p-3 mt-1 m-4">{company.description}</p>
