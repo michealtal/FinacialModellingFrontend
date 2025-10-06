@@ -4,6 +4,7 @@ import type { CompanyKeyMetrics } from '../../companyd';
 import { useOutletContext } from 'react-router';
 import { getKeyMetrics } from '../../api';
 import Spinner from '../Spinner/Spinner';
+import StockComment from '../StockComment/StockComment';
 import { formatLargeNonMonetaryNumber, formatRatio } from '../../Helpers/NumberFormatting';
 type Props = {}
   const tableConfig = [
@@ -93,6 +94,7 @@ useEffect(() => {
     {companyData ? (
       <>
         <RatioList configs={tableConfig} data={companyData} />
+        <StockComment stockSymbol={ticker}/>
       </>
     ) : (
      <Spinner isLoading={true}/>

@@ -50,7 +50,7 @@ const TenKFinder = ({ ticker }: Props) => {
       {tenKData.map((tenK) => (
         <TenKFinderItem key={tenK.fillingDate} tenK={tenK} />
       ))}
-    </div>
+    </div>         
   )
 }
 
